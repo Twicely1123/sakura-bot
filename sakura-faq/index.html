@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sakura Town — FAQ & ช่วยเหลือ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink:    #E8A0BF;
+  --pink-d:  #C4688E;
+  --pink-l:  #FAE8F0;
+  --petal:   #F7D6E4;
+  --dark:    #1A0F14;
+  --mid:     #3D2232;
+  --muted:   #7A5468;
+  --white:   #FEF8FB;
+  --border:  rgba(232,160,191,0.25);
+  --shadow:  0 2px 20px rgba(196,104,142,0.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--dark);color:var(--white);font-family:'Noto Sans Thai','Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
+
+/* petals bg */
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(232,160,191,0.12) 0%,transparent 70%);pointer-events:none;z-index:0;}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;position:relative;z-index:1;}
+
+/* header */
+header{padding:48px 0 24px;text-align:center;}
+.logo-mark{display:inline-flex;align-items:center;gap:10px;margin-bottom:20px;}
+.sakura-icon{font-size:28px;filter:drop-shadow(0 0 12px rgba(232,160,191,0.6));}
+.brand{font-size:13px;letter-spacing:.15em;color:var(--pink);text-transform:uppercase;font-weight:500;}
+h1{font-size:clamp(28px,5vw,42px);font-weight:300;letter-spacing:-.01em;line-height:1.15;margin-bottom:10px;}
+h1 span{color:var(--pink);font-weight:500;}
+.tagline{font-size:15px;color:var(--muted);font-weight:300;}
+
+/* search */
+.search-wrap{position:relative;margin:32px 0 40px;}
+.search-wrap input{
+  width:100%;padding:16px 20px 16px 48px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  border-radius:14px;
+  color:var(--white);font-size:15px;
+  font-family:'Noto Sans Thai','Inter',sans-serif;
+  outline:none;transition:border-color .2s,background .2s;
+}
+.search-wrap input::placeholder{color:var(--muted);}
+.search-wrap input:focus{border-color:var(--pink);background:rgba(232,160,191,0.06);}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:18px;pointer-events:none;}
+.result-count{text-align:center;font-size:13px;color:var(--muted);margin-top:-28px;margin-bottom:28px;min-height:18px;}
+
+/* category tabs */
+.cats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;}
+.cat-btn{padding:6px 16px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-family:'Noto Sans Thai','Inter',sans-serif;cursor:pointer;transition:all .18s;}
+.cat-btn:hover{border-color:var(--pink);color:var(--pink);}
+.cat-btn.active{background:var(--pink);border-color:var(--pink);color:var(--dark);font-weight:600;}
+
+/* FAQ items */
+.faq-list{display:flex;flex-direction:column;gap:10px;margin-bottom:60px;}
+.faq-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s;}
+.faq-item:hover{border-color:rgba(232,160,191,0.4);}
+.faq-item.hidden{display:none;}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;background:transparent;border:none;color:var(--white);font-size:14.5px;font-family:'Noto Sans Thai','Inter',sans-serif;font-weight:500;text-align:left;cursor:pointer;}
+.faq-q:hover{color:var(--pink);}
+.faq-badge{flex-shrink:0;font-size:11px;padding:3px 9px;border-radius:99px;background:rgba(232,160,191,0.12);color:var(--pink);font-weight:500;}
+.faq-arrow{flex-shrink:0;width:18px;height:18px;color:var(--muted);transition:transform .25s;}
+.faq-item.open .faq-arrow{transform:rotate(180deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;}
+.faq-item.open .faq-a{max-height:400px;}
+.faq-a-inner{padding:0 20px 18px;font-size:14px;color:rgba(254,248,251,0.75);line-height:1.8;border-top:1px solid var(--border);}
+.faq-a-inner p{padding-top:14px;}
+.faq-a-inner code{background:rgba(232,160,191,0.12);color:var(--pink);padding:2px 6px;border-radius:5px;font-family:monospace;font-size:13px;}
+
+/* empty */
+.empty{text-align:center;padding:60px 20px;display:none;}
+.empty.show{display:block;}
+.empty-icon{font-size:40px;margin-bottom:12px;opacity:.4;}
+.empty p{color:var(--muted);font-size:14px;}
+
+/* footer */
+footer{border-top:1px solid var(--border);padding:28px 0;text-align:center;}
+.footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:12px;}
+.footer-links a{color:var(--muted);font-size:13px;text-decoration:none;transition:color .18s;}
+.footer-links a:hover{color:var(--pink);}
+.footer-note{font-size:12px;color:rgba(122,84,104,.6);}
+
+/* highlight */
+mark{background:rgba(232,160,191,0.25);color:var(--pink);border-radius:3px;padding:0 2px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo-mark">
+      <span class="sakura-icon">🌸</span>
+      <span class="brand">Sakura Town</span>
+    </div>
+    <h1>มีคำถาม?<br><span>เราช่วยได้</span></h1>
+    <p class="tagline">รวมคำตอบปัญหาที่พบบ่อยในเซิร์ฟเวอร์</p>
+  </header>
+
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search" placeholder="ค้นหาคำถาม เช่น เงินหาย, แบน, สมัครสมาชิก..." autocomplete="off">
+  </div>
+  <div class="result-count" id="resultCount"></div>
+
+  <div class="cats" id="cats">
+    <button class="cat-btn active" data-cat="ทั้งหมด">ทั้งหมด</button>
+    <button class="cat-btn" data-cat="ทั่วไป">ทั่วไป</button>
+    <button class="cat-btn" data-cat="บัค">แจ้งบัค</button>
+    <button class="cat-btn" data-cat="ไอเทม">ไอเทม / เงิน</button>
+    <button class="cat-btn" data-cat="แบน">แบน / โทษ</button>
+    <button class="cat-btn" data-cat="สมัคร">สมัคร / ตัวละคร</button>
+  </div>
+
+  <div class="faq-list" id="faqList"></div>
+  <div class="empty" id="empty">
+    <div class="empty-icon">🌸</div>
+    <p>ไม่พบคำถามที่ตรงกัน<br>ลองใช้คำค้นอื่น หรือติดต่อแอดมินใน Discord ครับ</p>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/" target="_blank">Discord Server</a>
+      <a href="#">ติดต่อแอดมิน</a>
+    </div>
+    <p class="footer-note">Sakura Town FiveM RP · อัปเดต มิถุนายน 2026</p>
+  </footer>
+</div>
+
+<script>
+const FAQ = [
+  {q:"เข้าเซิร์ฟไม่ได้ timeout ตลอดทำยังไง?",a:"ลอง 3 วิธีนี้ตามลำดับครับ: (1) ปิด VPN ถ้าเปิดอยู่ (2) กด F8 แล้วพิมพ์ <code>connect [IP เซิร์ฟ]</code> ใหม่ (3) ล้างแคช FiveM โดยไปที่ <code>%localappdata%/FiveM</code> แล้วลบโฟลเดอร์ cache หากยังไม่ได้ติดต่อแอดมินครับ",cat:"ทั่วไป"},
+  {q:"สมัครสมาชิกเซิร์ฟต้องทำอะไรบ้าง?",a:"เปิด ticket หมวด <code>ติดต่อ support</code> ใน Discord แล้วกรอกข้อมูลตามฟอร์มที่บอทส่งมาครับ ได้แก่ ชื่อในเกม, Discord ID, และยืนยันว่าอ่านกฎครบแล้ว",cat:"สมัคร"},
+  {q:"ตัวละครหาย / เข้าเกมมาตัวละครไม่อยู่",a:"เกิดขึ้นได้หลังเซิร์ฟรีสตาร์ทครับ ให้เปิด ticket หมวด <code>แจ้งบัค</code> พร้อมแนบ Screenshot และเวลาที่เจอปัญหา ทีมงาน DEV จะตรวจสอบ database ให้",cat:"บัค"},
+  {q:"เงินหายไปหลังเซิร์ฟล่มทำยังไง?",a:"เปิด ticket หมวด <code>ติดต่อ support</code> แจ้ง: จำนวนเงินที่หาย, เวลาโดยประมาณ, และกิจกรรมที่ทำก่อนเงินหาย ทีมงานจะตรวจ log และคืนให้ถ้าเป็นความผิดพลาดของเซิร์ฟครับ",cat:"ไอเทม"},
+  {q:"ไอเทมหายออกจากตู้/รถ ทำยังไง?",a:"เปิด ticket หมวด <code>แจ้งบัค</code> ระบุชื่อไอเทม, ตำแหน่งที่วางไว้, และเวลาที่หาย ทีมจะตรวจสอบ log ให้ครับ ไม่สามารถคืนได้ทุกกรณี ขึ้นอยู่กับหลักฐาน",cat:"ไอเทม"},
+  {q:"โดนแบนไม่รู้สาเหตุ ขอ unban ได้ไหม?",a:"ได้ครับ เปิด ticket หมวด <code>ติดต่อแอดมิน</code> แจ้ง Discord ID และ Steam ID พร้อมอธิบายสถานการณ์ ทีมงานจะตรวจสอบหลักฐานและแจ้งผลภายใน 24-48 ชั่วโมง",cat:"แบน"},
+  {q:"โดนรีพอร์ตผิด มีคนกล่าวหาเท็จทำยังไง?",a:"เปิด ticket หมวด <code>ติดต่อแอดมิน</code> แนบหลักฐาน เช่น คลิปวิดีโอ Screenshot และอธิบายเหตุการณ์ตามความเป็นจริงครับ แอดมินจะสอบสวนทั้งสองฝ่าย",cat:"แบน"},
+  {q:"RDM / VDM คืออะไร โทษคืออะไร?",a:"<b>RDM</b> (Random DeathMatch) คือการฆ่าผู้เล่นอื่นโดยไม่มีเหตุใน RP<br><b>VDM</b> (Vehicle DeathMatch) คือการใช้ยานพาหนะชนผู้เล่นโดยเจตนา<br>โทษเริ่มจาก kick ไปจนถึง permanent ban ขึ้นอยู่กับความรุนแรง",cat:"แบน"},
+  {q:"Metagaming คืออะไร?",a:"คือการนำข้อมูลนอกเกม (Discord, ข้อความ) มาใช้ในเกม เช่น รู้ตำแหน่งศัตรูจาก Discord แล้วไปดักใน RP ถือว่าผิดกฎครับ",cat:"แบน"},
+  {q:"ตัวละครใหม่เริ่มต้นมีเงินเท่าไหร่?",a:"ตัวละครใหม่จะได้รับเงินเริ่มต้นตามที่เซิร์ฟกำหนด แนะนำให้ถามใน Discord หรือดูใน #ข้อมูลเซิร์ฟ เพราะอาจมีการอัปเดตครับ",cat:"สมัคร"},
+  {q:"เปลี่ยนชื่อตัวละครได้ไหม?",a:"ได้ครับ เปิด ticket หมวด <code>ติดต่อ support</code> แจ้งชื่อเดิมและชื่อใหม่ที่ต้องการ อาจมีเงื่อนไขหรือค่าใช้จ่ายตามที่เซิร์ฟกำหนด",cat:"สมัคร"},
+  {q:"เซิร์ฟ restart กี่โมง?",a:"ตรวจสอบได้ที่ช่อง #ประกาศ หรือ #ข้อมูลเซิร์ฟ ใน Discord ครับ เวลา restart อาจเปลี่ยนแปลงได้",cat:"ทั่วไป"},
+  {q:"FiveM กระตุก / lag มากทำยังไง?",a:"ลองทำตามนี้ครับ: (1) ลด Graphics Settings ใน GTA V (2) ปิดโปรแกรมอื่นที่ใช้ RAM เยอะ (3) ล้างแคช FiveM (4) ตรวจสอบ ping เซิร์ฟใน F8 ถ้า ping สูงเกิน 150ms อาจเป็นปัญหาอินเทอร์เน็ต",cat:"ทั่วไป"},
+  {q:"แจ้งบัคต้องส่งอะไรบ้าง?",a:"ส่งมาให้ครบครับ: (1) อธิบายบัคที่เจอ (2) วิธีทำให้เกิดซ้ำ (3) Screenshot หรือ Video (4) เวลาที่เจอ เพื่อให้ DEV ตรวจสอบ log ได้ถูกต้อง",cat:"บัค"},
+  {q:"ติดต่อแอดมินช่องทางไหนได้บ้าง?",a:"ช่องทางหลักคือ <code>Ticket</code> ใน Discord ครับ เลือกหมวดให้ตรง เช่น แจ้งบัค / ติดต่อ support / ติดต่อแอดมิน อย่า DM แอดมินโดยตรงเพราะอาจไม่ได้รับการตอบ",cat:"ทั่วไป"},
+];
+
+let activeCat = 'ทั้งหมด';
+let searchTerm = '';
+
+function highlight(text, term) {
+  if (!term) return text;
+  const re = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+  return text.replace(re, '<mark>$1</mark>');
+}
+
+function render() {
+  const list = document.getElementById('faqList');
+  const empty = document.getElementById('empty');
+  const rc = document.getElementById('resultCount');
+  list.innerHTML = '';
+  let count = 0;
+
+  FAQ.forEach((item, i) => {
+    const catMatch = activeCat === 'ทั้งหมด' || item.cat === activeCat;
+    const q = item.q.toLowerCase(); const a = item.a.toLowerCase();
+    const s = searchTerm.toLowerCase();
+    const termMatch = !s || q.includes(s) || a.includes(s);
+    if (!catMatch || !termMatch) return;
+    count++;
+
+    const div = document.createElement('div');
+    div.className = 'faq-item';
+    div.innerHTML = `
+      <button class="faq-q" onclick="toggle(this)">
+        <span>${highlight(item.q, searchTerm)}</span>
+        <span style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <span class="faq-badge">${item.cat}</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner"><p>${highlight(item.a, searchTerm)}</p></div></div>`;
+    list.appendChild(div);
+  });
+
+  empty.classList.toggle('show', count === 0);
+  rc.textContent = searchTerm || activeCat !== 'ทั้งหมด' ? `พบ ${count} คำถาม` : '';
+}
+
+function toggle(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+document.getElementById('search').addEventListener('input', e => {
+  searchTerm = e.target.value;
+  render();
+});
+
+document.getElementById('cats').addEventListener('click', e => {
+  const btn = e.target.closest('.cat-btn');
+  if (!btn) return;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
